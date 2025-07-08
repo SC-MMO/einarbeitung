@@ -46,11 +46,11 @@ for group in content:
         active=group.get('active', False),
         members= [
             member(
-                name=hero.get('name', 'N/A'), 
-                age=hero.get('age', 'N/A'),
-                secretIdentity=hero.get('secretIdentity', 'N/A'),
-                powers=hero.get('powers', 'N/A')
-                ) for hero in group.get('members', [])]
+                name=a_member.get('name', 'N/A'), 
+                age=a_member.get('age', 'N/A'),
+                secretIdentity=a_member.get('secretIdentity', 'N/A'),
+                powers=a_member.get('powers', 'N/A')
+                ) for a_member in group.get('members', [])]
         )
     groups.append(obj)
 ```
@@ -122,7 +122,7 @@ for group in content:
             member(
                 id=next(ids),
                 ...
-                ) for hero in group.get('members', [])]
+                ) for a_member in group.get('members', [])]
         )
     groups.append(obj)
 ```
@@ -189,11 +189,11 @@ for group in content:
         members= [
             member(
                 id=next(ids),
-                name=hero.get('name', 'N/A'), 
-                age=hero.get('age', 'N/A'),
-                secretIdentity=hero.get('secretIdentity', 'N/A'),
-                powers=hero.get('powers', 'N/A')
-                ) for hero in group.get('members', [])]
+                name=a_member.get('name', 'N/A'), 
+                age=a_member.get('age', 'N/A'),
+                secretIdentity=a_member.get('secretIdentity', 'N/A'),
+                powers=a_member.get('powers', 'N/A')
+                ) for a_member in group.get('members', [])]
         )
     groups.append(obj)
 
@@ -227,7 +227,7 @@ print(a_squad)
 -> Eine Klasse ist ein Bauplan für ein Objekt welches im Grunde ein eigenst definierter Datentyp ist (Ein Objekt ist eine Instanz einer Klasse)
 
 4. Was versteht man unter Kapselung?
--> Man verbirgt die Attribute und ggf. Methoden einer Klasse und macht es nur für das was man verändern/aufrufen können soll möglich
+-> Man verbirgt die Attribute und ggf. Methoden einer Klasse und macht es nur für das was man verändern/aufrufen können soll möglich es aufzurufen bzw. zu verändern
 
 5. Was ist Vererbung?
 -> Wenn eine Klasse Attribute und/oder Methoden von einer anderen Klasse kopiert
@@ -308,7 +308,7 @@ if x = 5:
     print("x is 5")
 ```
 
-# Korrigiert 3 (= durch == ersätzt, da = für Variablenwertvergebung benutzt wird, Vergleiche werden mit == gemacht)
+# Korrigiert 3 (= durch == ersätzt, da = für Variablenwertvergebung benutzt wird, Gleichheitsvergleiche werden mit == gemacht)
 ```python
 x = 10
 if x == 5:   
