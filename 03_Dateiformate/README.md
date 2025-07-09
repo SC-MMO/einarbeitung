@@ -4,6 +4,8 @@
 2. Erstelle ein XML-File aus der JSON.
 3. Validiere das XML-File mittels XSD.
 
+# Aufgaben -> ./03_Aufgaben.py
+
 ### Fragen:
 
 1. Was sind die Unterschiede der Datentypen?
