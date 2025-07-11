@@ -75,7 +75,7 @@ def drop_table(*, table:str, error:bool=True) -> bool:
       raise Exception("Drop Table Error: ", e) from e
     return False
 
-def add_row(*, table:str, args:set, error:bool=True) -> bool:
+def add_row(*, table:str, args:list, error:bool=True) -> bool:
   try:
     mycursor.execute("SHOW COLUMNS FROM %s" % table)
     columns = [row[0] for row in mycursor.fetchall() if row[5] != 'auto_increment']
@@ -131,16 +131,15 @@ def drop_column(*, table:str, column:str, error:bool=True) -> bool:
     return False
 
 
-
-
 # Initialize tables
+drop_table(table="powers")
 drop_table(table="members")
 drop_table(table="squads")
 
 create_table(
   table="squads", 
   columns_config_str="""
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    squadId INT AUTO_INCREMENT PRIMARY KEY,
     squadName VARCHAR(255), 
     homeTown VARCHAR(255), 
     formed VARCHAR(255), 
@@ -153,12 +152,21 @@ create_table(
   table="members", 
   columns_config_str="""
     memberId INT AUTO_INCREMENT PRIMARY KEY,
-    squad_id INT,
+    squadId INT,
     name VARCHAR(255),
     age VARCHAR(255),
     secretIdentity VARCHAR(255),
-    powers VARCHAR(255),
-    FOREIGN KEY (squad_id) REFERENCES squads(id) ON DELETE CASCADE
+    FOREIGN KEY (squadId) REFERENCES squads(squadId) ON DELETE CASCADE
+  """
+)
+
+create_table(
+  table="powers", 
+  columns_config_str="""
+    powerId INT AUTO_INCREMENT PRIMARY KEY,
+    memberId INT,
+    power VARCHAR(255),
+    FOREIGN KEY (memberId) REFERENCES members(memberid) ON DELETE CASCADE
   """
 )
 
@@ -167,16 +175,39 @@ create_table(
 with open("../base.json", "r") as my_file:
     content = json.load(my_file)
 
-squads = []
-members = []
 
 for squad in content:
-    sql_add_squad = "INSERT INTO squads (squadName, homeTown, formed, status, secretBase, active) VALUES (%s, %s, %s, %s, %s, %s)"
-    mycursor.execute(sql_add_squad, (squad.get('squadName'), squad.get('homeTown'), squad.get('formed'), squad.get('status'), squad.get('secretBase'), squad.get('active')))
-    squad_id = mycursor.lastrowid
+    add_row(
+        table="squads",
+        args=[
+            squad.get('squadName'),
+            squad.get('homeTown'),
+            squad.get('formed'),
+            squad.get('status'),
+            squad.get('secretBase'),
+            squad.get('active')
+        ]
+    )
+    squadId = mycursor.lastrowid
+
     for member in squad.get("members"):
-        sql_add_member = "INSERT INTO members (squad_id, name, age, secretIdentity, powers) VALUES (%s, %s, %s, %s, %s)"
-        mycursor.execute(sql_add_member, (squad_id, member.get('name'), member.get('age'), member.get('secretIdentity'), "testpower"))
+        add_row(
+            table="members",
+            args=[
+                squadId,
+                member.get('name'),
+                member.get('age'),
+                member.get('secretIdentity')
+            ]
+        )
+        memberId = mycursor.lastrowid
+
+        for power in member.get('powers'):
+            add_row(
+                table="powers",
+                args=[memberId, power]
+            )
+
 
 mycursor.execute("""
 SELECT 
@@ -184,16 +215,11 @@ SELECT
   squads.homeTown, 
   members.name
 FROM members
-INNER JOIN squads ON members.squad_id = squads.id;
+INNER JOIN squads ON members.squadId = squads.squadId;
                  """)
 
 print(json.dumps(mycursor.fetchall(), indent=4))
 
-mycursor.execute("""
-SELECT *
-FROM squads, members
-                 """)
-print(json.dumps(mycursor.fetchall(), indent=4))
 
 # Tests
 '''
@@ -205,7 +231,7 @@ print(f"""
   add_column: {add_column(table="test_table", column="testColumn3", column_type="VARCHAR(255)")} 
   read_columns: {read_columns(table="test_table")}
   \n
-  add_row: {add_row(table="test_table", args=("testVal1", "testVal2"))}
+  add_row: {add_row(table="test_table", args=["testVal1", "testVal2"])}
   read_rows: {read_rows(table="test_table")}
   \n
   delete_row: {delete_row(table="test_table", object_id=1)}
