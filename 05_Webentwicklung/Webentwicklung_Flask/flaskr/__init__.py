@@ -48,4 +48,7 @@ def create_app(test_config=None):
     from .squads import squad_bp
     app.register_blueprint(squad_bp)
     
+    @app.route('/', methods=["GET", "POST"])
+    def index():
+        return "Homepage"
     return app
