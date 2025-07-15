@@ -9,8 +9,8 @@
             <i class="fa-solid fa-book-skull fa-8x text-danger squadIcon status"></i>
         {% endif %}
         <h1>
-            {{ res.get('squadName') }}    
-        </h1>        
+            {{ res.get('name') }}    
+        </h1>
     </div>
     <hr/>
 
@@ -21,38 +21,39 @@
             <i class="fa-solid fa-circle-check fa-8x text-success left-icon"></i>
             <h2>Still active</h2>
         {% else %}
-            <i class="fa-regular fa-circle-xmark text-danger left-icon"></i>
+            <i class="fa-regular fa-circle-xmark fa-8x text-danger left-icon"></i>
             <h2>Retired</h2>
         {% endif %}
     </div>
 
     <div class="left-values"> 
-        <i class="fa-solid fa-location-dot fa-8x text-primary left-icon"></i>
-        <h2> Based in {{ res.get('homeTown') }}</h2>
+        <i class="fa-solid fa-clock fa-8x text-primary left-icon"></i>
+        <h2> {{ res.get('age') }} years old</h2>
     </div>
 
     <div class="left-values"> 
-        <i class="fa-solid fa-location-pin-lock fa-8x text-danger left-icon"></i>
-        <h2>Secretly residing in {{ res.get('secretBase') }}</h2>
-    </div>
+            <i class="fa-solid fa-user-secret fa-8x text-danger left-icon"></i>
+            <h2>Secretly {{ res.get('secretIdentity') }}</h2>
+        </div>
 
     <div class="left-values"> 
-        <i class="fa-solid fa-calendar-days fa-8x text-warning left-icon"></i>
-        <h2>Formed in {{ res.get('formed') }}</h2>
+        <i class="fa-solid fa-people-group fa-7x text-warning left-icon"></i>
+        <h2>Part of 
+            <a href="{{ url_for('squads.show_a_squad', squadName=res.get('squadName')) }}">{{ res.get('squadName') }}</a></h2>
     </div>
 
 
     <div class="members-icon"> 
-        <i class="fa-solid fa-users text-info"></i>
+        <i class="fa-solid fa-hat-wizard text-info"></i>
     </div>
 
     <div class="right-icons">
-        {% for member in res.get('members') %}
+        {% for power in res.get('powers', []) %}
             <div class="right-icons-items">
-                <a href="{{ url_for('members.show_a_member', memberName=member)}}"><i class="fa-solid fa-user fa-4x"></i> </a>
+                <i class="fa-solid fa-wand-sparkles fa-4x"></i>
                 <br>
                 <h3 class="fa-1x">
-                    <a href="{{ url_for('members.show_a_member', memberName=member)}}">{{ member }}</a>
+                    {{ power }}
                 </h3>
             </div>
         {% endfor %}
