@@ -8,7 +8,9 @@ $(document).ready(function () {
         previous: '<',
         next: '>',
         last: '>>'
-      }
+      },
+      info: "Showing _START_ to _END_ of _TOTAL_ entries",
+      infoFiltered: "(filtered from _MAX_)"
     }
   });
 });
