@@ -7,10 +7,9 @@ squad_bp = Blueprint('squads', __name__, url_prefix='/squads')
 def show_squads():
     squads = exec_cmd(sql_str="""             
 SELECT 
-    squads.squadID,
     CONCAT('<a href="/squads/', squads.squadName, '">', squads.squadName, '</a>') AS squadName,
-    squads.homeTown,
     squads.formed,
+    squads.homeTown,
     squads.status,
     squads.secretBase,
     IF(squads.active, 'yea', 'ney'),
@@ -28,7 +27,7 @@ ORDER BY
     squads.squadID;
 
 """)
-    columns = ["ID", "Squad Name", "Home Town", "Formed", "Status", "Secret Base", "Active", "Members"]
+    columns = ["Squad Name", "Formed", "Home Town", "Status", "Secret Base", "Active", "Members"]
     return render_template("row_table.html", title="Squads", columns=columns, rows=squads)
 
 @squad_bp.route('/<squadName>', methods=["GET", "POST"])
