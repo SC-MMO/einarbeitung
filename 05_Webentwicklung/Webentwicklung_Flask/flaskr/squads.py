@@ -34,6 +34,11 @@ ORDER BY
 @squad_bp.route('/<squadName>', methods=["GET", "POST"])
 def show_a_squad(squadName):
     columns = read_columns(table="squads", only_name=True)
-    rows = read_rows(table="squads", limit=1, filter_args=[f"squads.squadName = '{squadName}'"])[0]
+    rows = read_rows(table="squads", limit=1, filter_args=[f"squads.squadName = \"{squadName}\""])[0]
     res = dict(zip(columns, rows))
-    return f"{res}"
+
+    members = read_rows(table="members", columns=['name'], filter_args=[f"members.squadId = \"{res.get('squadId')}\""])
+    members = [member[0] for member in members]
+    
+    res['members'] = members
+    return render_template("squad.html", res=res)

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='squad/squad.css') }}">
+    <div class="squadname-container">
+        {% if res.get('status') == 'good' %}
+            <i class="fa-solid fa-book-medical fa-8x text-success squadIcon status"></i>
+        {% else %}
+            <i class="fa-solid fa-book-skull fa-8x text-danger squadIcon status"></i>
+        {% endif %}
+        <h1>
+            {{ res.get('squadName') }}    
+        </h1>
+        
+    </div>
+
+    <hr/>
+    <br>
+    
+    <div class="left-values"> 
+        {% if res.get('active') == '1' %}
+            <i class="fa-solid fa-circle-check fa-8x text-success left-icon"></i>
+            <h2>Still active</h2>
+        {% else %}
+            <i class="fa-regular fa-circle-xmark text-danger left-icon"></i>
+            <h2>Retired</h2>
+        {% endif %}
+    </div>
+
+    <div class="left-values"> 
+        <i class="fa-solid fa-location-dot fa-8x text-primary left-icon"></i>
+        <h2> Based in {{ res.get('homeTown') }}</h2>
+    </div>
+
+    <div class="left-values"> 
+        <i class="fa-solid fa-location-pin-lock fa-8x text-danger left-icon"></i>
+        <h2>Secretly residing in {{ res.get('secretBase') }}</h2>
+    </div>
+
+    <div class="left-values"> 
+        <i class="fa-solid fa-calendar-days fa-8x text-warning left-icon"></i>
+        <h2>Formed in {{ res.get('formed') }}</h2>
+    </div>
+
+
+    <div class="members-icon"> 
+        <i class="fa-solid fa-users fa-10x text-info"></i>
+    </div>
+
+    <div class="right-icons">
+        {% for member in res.get('members') %}
+            <div class="right-icons-items">
+                <a href="{{ url_for('members.show_a_member', memberName=member)}}"><i class="fa-solid fa-user fa-4x"></i> </a>
+                <br>
+                <h3 class="fa-1x">
+                    <a href="{{ url_for('members.show_a_member', memberName=member)}}">{{ member }}</a>
+                </h3>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
