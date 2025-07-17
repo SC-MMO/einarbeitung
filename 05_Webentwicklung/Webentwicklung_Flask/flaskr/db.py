@@ -27,7 +27,9 @@ def read_tables(*, limit:int=None, sys_tables:bool=False, error:bool=True, curso
     table_filter_str = "" if sys_tables else " WHERE table_schema NOT IN ('information_schema', 'mysql', 'performance_schema', 'sys')"
     sql = f"SELECT table_name\nFROM information_schema.tables\n{limit_str}{table_filter_str};"
     cursor.execute(sql)
-    return cursor.fetchall()
+    res = cursor.fetchall()
+    get_db().commit()
+    return res
 
   except Exception as e:
     if error:
@@ -43,23 +45,24 @@ def read_columns(*, table:str, only_name:bool=False, error:bool=True, cursor=Non
       #res = [row[0] for row in res]
       #map is cooler
       res = list(map(lambda x: x[0], res))
+    get_db().commit()
     return res
   
   except Exception as e:
     if error:
       raise Exception("Read Columns Error: ", e) from e
 
-def read_rows(*, table: str, columns: list = ['*'], limit:int = None, error:bool=True, cursor=None, filter_args:List[str]=None) -> List[Tuple[str]]:
+def read_rows(*, table: str, columns: list = ['*'], limit:int = None, filter_args:List[str]=None, error:bool=True, cursor=None, ) -> List[Tuple[str]]:
   try:
     if not cursor:
       cursor = get_cursor()
     limit_str = f"LIMIT {limit}" if limit else ""
-    where_str = f"WHERE {', '.join(filter_args)}" if filter_args else ""
+    where_str = f"WHERE {' AND '.join(filter_args)}" if filter_args else ""
     cursor.execute(f"SELECT {', '.join(columns)} FROM {table} {where_str} {limit_str}")
     rows = cursor.fetchall()
+    get_db().commit()
     return rows
     
-  
   except Exception as e:
     if error:
       raise Exception("Read Rows Error: ", e) from e
@@ -81,6 +84,7 @@ def create_table(*, table:str, columns_config_str: Union[str, List[str]], error:
       columns_config_str = ', '.join(columns_config_str)
 
     cursor.execute(f"CREATE TABLE IF NOT EXISTS {table} ({columns_config_str})")
+    get_db().commit()
     return True
   
   except Exception as e:
@@ -93,6 +97,7 @@ def drop_table(*, table:str, error:bool=True, cursor=None) -> bool:
     if not cursor:
       cursor = get_cursor()
     cursor.execute(f"DROP TABLE IF EXISTS {table}")
+    get_db().commit()
     return True
   
   except Exception as e:
@@ -100,7 +105,7 @@ def drop_table(*, table:str, error:bool=True, cursor=None) -> bool:
       raise Exception("Drop Table Error: ", e) from e
     return False
 
-def add_row(*, table:str, args:set, error:bool=True, cursor=None) -> bool:
+def add_row(*, table:str, args:List[str], error:bool=True, cursor=None) -> bool:
   try:
     if not cursor:
       cursor = get_cursor()
@@ -115,6 +120,7 @@ def add_row(*, table:str, args:set, error:bool=True, cursor=None) -> bool:
     sql = f"INSERT INTO {table} ({columns_str}) VALUES ({placeholders})"
 
     cursor.execute(sql, args)
+    get_db().commit()
     return True
 
   except Exception as e:
@@ -122,12 +128,13 @@ def add_row(*, table:str, args:set, error:bool=True, cursor=None) -> bool:
       raise Exception("Add Row Error: ", e) from e
     return False
 
-def delete_row(*, table:str, object_id:int, error:bool=True, cursor=None) -> bool:
+def delete_row(*, table:str, filter:str, error:bool=True, cursor=None) -> bool:
   try:
     if not cursor:
       cursor = get_cursor()
-    sql = f"DELETE FROM {table} WHERE id = {object_id}"
+    sql = f"DELETE FROM {table} WHERE {filter}"
     cursor.execute(sql)
+    get_db().commit()
     return True
 
   except Exception as e:
@@ -135,7 +142,7 @@ def delete_row(*, table:str, object_id:int, error:bool=True, cursor=None) -> boo
       raise Exception("Delete Row Error: ", e) from e
     return False
 
-def add_column(*, table:str, column:str, column_type:str=None, column_constraint:str="", error:bool=True, cursor=None) -> False:
+def add_column(*, table:str, column:str, column_type:str=None, column_constraint:str="", error:bool=True, cursor=None) -> bool:
   try:
     if not cursor:
       cursor = get_cursor()
@@ -143,6 +150,7 @@ def add_column(*, table:str, column:str, column_type:str=None, column_constraint
       raise ValueError("Column type must be specified when adding a column.")
     if column not in [col[0] for col in read_columns(table=table)]:
       cursor.execute(f"ALTER TABLE {table} ADD {column} {column_type} {column_constraint}")
+    get_db().commit()
     return True
 
   except Exception as e:
@@ -156,12 +164,34 @@ def drop_column(*, table:str, column:str, error:bool=True, cursor=None) -> bool:
       cursor = get_cursor()
     if column in [col[0] for col in read_columns(table=table)]:
       cursor.execute(f"ALTER TABLE {table} DROP COLUMN {column}")
+    get_db().commit()
     return True
 
   except Exception as e:
     if error:
       raise Exception("Drop Column Error: ", e) from e
     return False
+
+#* Edit functions
+
+def edit_row(*, table: str, row_changes: List[str] = [], filter_args: List[str], error: bool = True, cursor = None) -> bool:
+  try:
+    if not cursor:
+        cursor = get_cursor()
+
+    if not row_changes:
+        raise ValueError("row_changes must be provided.")
+    
+    set_str = f"SET {', '.join(row_changes)}"
+    where_str = f"WHERE {' AND '.join(filter_args)}" if filter_args else ""
+    cursor.execute(f"UPDATE {table} {set_str} {where_str}")
+    get_db().commit()
+    return True
+      
+  except Exception as e:
+      if error:
+          raise Exception("Edit Row Error: ", e) from e
+      return False
 
 #* Special funcs ig
 
@@ -170,7 +200,9 @@ def exec_cmd(*, sql_str: str, error:bool=True, cursor=None) -> Any:
     if not cursor:
       cursor = get_cursor()
     cursor.execute(sql_str)
-    return cursor.fetchall()
+    res = cursor.fetchall()
+    get_db().commit()
+    return res
   
   except Exception as e:
     if error:
