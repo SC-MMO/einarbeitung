@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='object_display/object_display.css') }}">
+    <div class="squadname-container">
+        {% if res.get('status') == 'good' %}
+            <i class="fa-solid fa-book-medical fa-8x text-success squadIcon status"></i>
+        {% else %}
+            <i class="fa-solid fa-book-skull fa-8x text-danger squadIcon status"></i>
+        {% endif %}
+        <h1>
+            {{ res.get('name') }}    
+        </h1>
+    </div>
+    <hr/>
+
+    <br>
+    
+    <div class="left-values"> 
+        {% if res.get('active') == '1' %}
+            <i class="fa-solid fa-circle-check fa-8x text-success left-icon"></i>
+            <h2>Still active</h2>
+        {% else %}
+            <i class="fa-regular fa-circle-xmark fa-8x text-danger left-icon"></i>
+            <h2>Retired</h2>
+        {% endif %}
+    </div>
+
+    <div class="left-values"> 
+        <i class="fa-solid fa-clock fa-8x text-primary left-icon"></i>
+        <h2> {{ res.get('age') }} years old</h2>
+    </div>
+
+    <div class="left-values"> 
+            <i class="fa-solid fa-user-secret fa-8x text-danger left-icon"></i>
+            <h2>Secretly {{ res.get('secretIdentity') }}</h2>
+        </div>
+
+    <div class="left-values"> 
+        <i class="fa-solid fa-people-group fa-7x text-warning left-icon"></i>
+        <h2>Part of 
+            <a href="{{ url_for('squads.show_a_squad', squadName=res.get('squadName')) }}">{{ res.get('squadName') }}</a></h2>
+    </div>
+
+
+    <div class="members-icon"> 
+        <i class="fa-solid fa-hat-wizard text-info"></i>
+    </div>
+
+    <div class="right-icons">
+        {% for power in res.get('powers', []) %}
+            <div class="right-icons-items">
+                <i class="fa-solid fa-wand-sparkles fa-4x"></i>
+                <br>
+                <h3 class="fa-1x">
+                    {{ power }}
+                </h3>
+            </div>
+        {% endfor %}
+    </div>
+    {% block formxd %}{% endblock %}
+
+{% endblock %}

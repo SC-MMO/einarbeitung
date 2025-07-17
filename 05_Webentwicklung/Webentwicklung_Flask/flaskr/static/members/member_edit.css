@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.rounded-rectangle {
+  padding-top: 2rem;
+  padding-left: 3rem; 
+  padding-right: 3rem;
+  top: 10rem;
+  position:absolute;
+  width: 32rem;
+  height: 40rem;
+  background-image: linear-gradient(to right, #c0bdc7 , #222027);
+  border-radius: 5rem;
+  text-align: left;
+}
+
+.rounded-rectangle > h1 {
+  color: white;
+  font-family: calibri;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.rounded-rectangle > h2 {
+  color: white;
+  font-family: calibri;
+  font-size: 1rem;
+  text-align: center;
+}
+
+table th,
+table td {
+  text-align:left;
+  padding:5px 10px;
+  border-bottom:2px solid black;
+}
+
+.form-field {
+  --bs-focus-ring-color: gray; 
+  width: 15rem; 
+  background-color: transparent;
+}
+
+input::placeholder {
+    color: whitesmoke;
+  }
