@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='single_element/single_element.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='object_display/object_display.css') }}">
     <div class="squadname-container">
         {% if res.get('status') == 'good' %}
             <i class="fa-solid fa-book-medical fa-8x text-success squadIcon status"></i>
@@ -58,5 +58,6 @@
             </div>
         {% endfor %}
     </div>
+    {% block formxd %}{% endblock %}
 
 {% endblock %}
