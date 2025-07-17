@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, url_for, render_template, abort, session, g
+from flask import Flask, redirect, url_for, render_template, abort, session, g, request
 from logging.config import dictConfig
 
 def create_app(test_config=None):
@@ -28,14 +28,6 @@ def create_app(test_config=None):
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
-
-
-
-    # @app.teardown_appcontext
-    # def close_db(error=None):
-    #     db = g.pop('db', None)
-    #     if db is not None:
-    #         db.close()
 
     # ensure the instance folder exists
     try:
