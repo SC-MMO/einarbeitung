@@ -3,15 +3,16 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='members/member_edit.css') }}">
 
-{% if intent == 'Edit' %}
-    <form method="POST" action="{{ url_for('members.edit_a_member', memberName=form.name.data) }}">
-{% else %}
-    <form method="POST" action="{{ url_for('members.create_a_member') }}">
-{% endif %}
-
 
 <div class="container">
   <div class="rounded-rectangle">  
+{% if intent == 'Edit' %}
+    <form method="POST" action="{{ url_for('members.edit_a_member', memberId=form.memberId.data) }}">
+{% else %}
+    <form method="POST" action="{{ url_for('members.create_a_member') }}">
+{% endif %}
+    {{ form.hidden_tag() }}
+    
     {% if intent == 'Edit' %}
       <h1>Edit {{ form.name.data }}</h1>
     {% else %}
@@ -46,12 +47,17 @@
     </table>
     <div style="text-align: center;">
       {% if intent == 'Edit' %}
-          {{ form.submitField(style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;") }}
+        {{ form.submitField(style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;") }}
       {% else %}
           {{ form.submitField(style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;") }}
       {% endif %}
       
     </div>
+    </form>
+    <form method="POST" action="{{ url_for('members.delete_a_member', memberId=form.memberId.data) }}" style="text-align: center">
+        {{ form.csrf_token }}
+        <input type="submit" value="Delete Member" style=" text-align: center; background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;"/>
+      </form>
   </div>
 </div>
 {% endblock %}

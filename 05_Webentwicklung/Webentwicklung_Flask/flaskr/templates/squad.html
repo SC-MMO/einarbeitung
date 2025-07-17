@@ -49,10 +49,10 @@
     <div class="right-icons">
         {% for member in res.get('members') %}
             <div class="right-icons-items">
-                <a href="{{ url_for('members.show_a_member', memberName=member)}}"><i class="fa-solid fa-user fa-4x"></i> </a>
+                <a href="{{ url_for('members.show_a_member', memberId=member[0])}}"><i class="fa-solid fa-user fa-4x"></i> </a>
                 <br>
                 <h3 class="fa-1x">
-                    <a href="{{ url_for('members.show_a_member', memberName=member)}}">{{ member }}</a>
+                    <a href="{{ url_for('members.show_a_member', memberId=member[0])}}">{{ member[1] }}</a>
                 </h3>
             </div>
         {% endfor %}
