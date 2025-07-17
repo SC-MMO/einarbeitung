@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<all>
+	<item>
+		<squadName>Super hero squad</squadName>
+		<homeTown>Metro City</homeTown>
+		<formed>2016</formed>
+		<status>good</status>
+		<secretBase>Super tower</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Molecule Man</name>
+				<age>29</age>
+				<secretIdentity>Dan Jukes</secretIdentity>
+				<powers>
+					<item>Radiation resistance</item>
+					<item>Turning tiny</item>
+					<item>Radiation blast</item>
+				</powers>
+			</item>
+			<item>
+				<name>Madame Uppercut</name>
+				<age>39</age>
+				<secretIdentity>Jane Wilson</secretIdentity>
+				<powers>
+					<item>Million tonne punch</item>
+					<item>Damage resistance</item>
+					<item>Superhuman reflexes</item>
+				</powers>
+			</item>
+			<item>
+				<name>Eternal Flame</name>
+				<age>1000000</age>
+				<secretIdentity>Unknown</secretIdentity>
+				<powers>
+					<item>Immortality</item>
+					<item>Heat Immunity</item>
+					<item>Inferno</item>
+					<item>Teleportation</item>
+					<item>Interdimensional travel</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>Avengers</squadName>
+		<homeTown>New York</homeTown>
+		<formed>2012</formed>
+		<status>good</status>
+		<secretBase>Stark Tower</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Iron Man</name>
+				<age>42</age>
+				<secretIdentity>Tony Stark</secretIdentity>
+				<powers>
+					<item>Genius-level intellect</item>
+					<item>Powered armor suit</item>
+					<item>Flight</item>
+					<item>Energy repulsors</item>
+				</powers>
+			</item>
+			<item>
+				<name>Captain America</name>
+				<age>33</age>
+				<secretIdentity>Steve Rogers</secretIdentity>
+				<powers>
+					<item>Superhuman strength</item>
+					<item>Enhanced agility</item>
+					<item>Expert martial artist</item>
+					<item>Vibranium shield</item>
+				</powers>
+			</item>
+			<item>
+				<name>Thor</name>
+				<age>1500</age>
+				<secretIdentity>Thor Odinson</secretIdentity>
+				<powers>
+					<item>Asgardian physiology</item>
+					<item>Superhuman strength</item>
+					<item>Control over lightning</item>
+					<item>Mjolnir (enchanted hammer)</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>X-Force</squadName>
+		<homeTown>New York</homeTown>
+		<formed>2020</formed>
+		<secretBase>X-Mansion</secretBase>
+		<active>true</active>
+		<status>neutral</status>
+		<members>
+			<item>
+				<name>Deadpool</name>
+				<age>42</age>
+				<secretIdentity>Wade Wilson</secretIdentity>
+				<powers>
+					<item>Regenerative healing factor</item>
+					<item>Expert marksman</item>
+					<item>Master martial artist</item>
+					<item>Fourth wall awareness</item>
+				</powers>
+			</item>
+			<item>
+				<name>Domino</name>
+				<age>32</age>
+				<secretIdentity>Neena Thurman</secretIdentity>
+				<powers>
+					<item>Luck manipulation</item>
+					<item>Expert marksmanship</item>
+					<item>Skilled hand-to-hand combatant</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>Guardians of the Galaxy</squadName>
+		<homeTown>Xandar</homeTown>
+		<formed>2014</formed>
+		<secretBase>Knowhere</secretBase>
+		<active>true</active>
+		<status>good</status>
+		<members>
+			<item>
+				<name>Star-Lord</name>
+				<age>40</age>
+				<secretIdentity>Peter Quill</secretIdentity>
+				<powers>
+					<item>Strategic leadership</item>
+					<item>Expert pilot</item>
+					<item>Skilled hand-to-hand combatant</item>
+					<item>Element Gun</item>
+				</powers>
+			</item>
+			<item>
+				<name>Gamora</name>
+				<age>35</age>
+				<secretIdentity>Gamora</secretIdentity>
+				<powers>
+					<item>Enhanced strength</item>
+					<item>Master assassin</item>
+					<item>Expert martial artist</item>
+					<item>Skilled swordswoman</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>Fantastic Four</squadName>
+		<homeTown>New York</homeTown>
+		<formed>1961</formed>
+		<status>good</status>
+		<secretBase>Baxter Building</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Mr. Fantastic</name>
+				<age>45</age>
+				<secretIdentity>Reed Richards</secretIdentity>
+				<powers>
+					<item>Elasticity</item>
+					<item>Superhuman intellect</item>
+				</powers>
+			</item>
+			<item>
+				<name>Invisible Woman</name>
+				<age>38</age>
+				<secretIdentity>Sue Storm</secretIdentity>
+				<powers>
+					<item>Invisibility</item>
+					<item>Force field generation</item>
+				</powers>
+			</item>
+			<item>
+				<name>Human Torch</name>
+				<age>30</age>
+				<secretIdentity>Johnny Storm</secretIdentity>
+				<powers>
+					<item>Pyrokinesis</item>
+					<item>Flight</item>
+				</powers>
+			</item>
+			<item>
+				<name>The Thing</name>
+				<age>40</age>
+				<secretIdentity>Ben Grimm</secretIdentity>
+				<powers>
+					<item>Superhuman strength</item>
+					<item>Durable rock-like skin</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>Teen Titans</squadName>
+		<homeTown>Jump City</homeTown>
+		<formed>1980</formed>
+		<status>good</status>
+		<secretBase>Titans Tower</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Robin</name>
+				<age>20</age>
+				<secretIdentity>Dick Grayson</secretIdentity>
+				<powers>
+					<item>Master acrobat</item>
+					<item>Strategic mind</item>
+				</powers>
+			</item>
+			<item>
+				<name>Starfire</name>
+				<age>22</age>
+				<secretIdentity>Koriand'r</secretIdentity>
+				<powers>
+					<item>Flight</item>
+					<item>Energy projection</item>
+					<item>Superhuman strength</item>
+				</powers>
+			</item>
+			<item>
+				<name>Cyborg</name>
+				<age>25</age>
+				<secretIdentity>Victor Stone</secretIdentity>
+				<powers>
+					<item>Cybernetic enhancements</item>
+					<item>Super strength</item>
+					<item>Technopathy</item>
+				</powers>
+			</item>
+			<item>
+				<name>Beast Boy</name>
+				<age>18</age>
+				<secretIdentity>Garfield Logan</secretIdentity>
+				<powers>
+					<item>Shapeshifting</item>
+					<item>Animal mimicry</item>
+				</powers>
+			</item>
+			<item>
+				<name>Raven</name>
+				<age>21</age>
+				<secretIdentity>Raven</secretIdentity>
+				<powers>
+					<item>Telekinesis</item>
+					<item>Teleportation</item>
+					<item>Astral projection</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>Sinister Six</squadName>
+		<homeTown>New York</homeTown>
+		<formed>1984</formed>
+		<status>evil</status>
+		<secretBase>Abandoned warehouse</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Doctor Octopus</name>
+				<age>58</age>
+				<secretIdentity>Otto Octavius</secretIdentity>
+				<powers>
+					<item>Mechanical tentacles</item>
+					<item>Genius-level intellect</item>
+					<item>Expert engineer</item>
+				</powers>
+			</item>
+			<item>
+				<name>Green Goblin</name>
+				<age>45</age>
+				<secretIdentity>Norman Osborn</secretIdentity>
+				<powers>
+					<item>Enhanced strength</item>
+					<item>Flight</item>
+					<item>Goblin-themed weaponry</item>
+				</powers>
+			</item>
+			<item>
+				<name>Electro</name>
+				<age>35</age>
+				<secretIdentity>Max Dillon</secretIdentity>
+				<powers>
+					<item>Electrokinesis</item>
+					<item>Electricity manipulation</item>
+					<item>Superhuman agility</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>Justice League</squadName>
+		<homeTown>Metropolis</homeTown>
+		<formed>1960</formed>
+		<status>good</status>
+		<secretBase>Hall of Justice</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Superman</name>
+				<age>35</age>
+				<secretIdentity>Clark Kent</secretIdentity>
+				<powers>
+					<item>Flight</item>
+					<item>Super strength</item>
+					<item>Heat vision</item>
+					<item>Freeze breath</item>
+					<item>Invulnerability</item>
+				</powers>
+			</item>
+			<item>
+				<name>Batman</name>
+				<age>42</age>
+				<secretIdentity>Bruce Wayne</secretIdentity>
+				<powers>
+					<item>Genius-level intellect</item>
+					<item>Wealth</item>
+					<item>Expert detective</item>
+					<item>Master martial artist</item>
+					<item>Advanced technology</item>
+				</powers>
+			</item>
+			<item>
+				<name>Wonder Woman</name>
+				<age>3000</age>
+				<secretIdentity>Diana Prince</secretIdentity>
+				<powers>
+					<item>Super strength</item>
+					<item>Flight</item>
+					<item>Combat skills</item>
+					<item>Lasso of Truth</item>
+					<item>Divine wisdom</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>Dr Evil's Group</squadName>
+		<homeTown>Las Vegas</homeTown>
+		<formed>1997</formed>
+		<status>evil</status>
+		<secretBase>Underground lair</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Dr. Evil</name>
+				<age>58</age>
+				<secretIdentity>Douglas Powers</secretIdentity>
+				<powers>
+					<item>Genius-level intellect</item>
+					<item>Master strategist</item>
+					<item>Evil laugh</item>
+					<item>Henchmen</item>
+				</powers>
+			</item>
+			<item>
+				<name>Mini-Me</name>
+				<age>28</age>
+				<secretIdentity>Verne Troyer</secretIdentity>
+				<powers>
+					<item>Clone of Dr. Evil</item>
+					<item>Miniaturization</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>The X-Men</squadName>
+		<homeTown>Westchester County</homeTown>
+		<formed>1963</formed>
+		<status>good</status>
+		<secretBase>Xavier's School for Gifted Youngsters</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Professor X</name>
+				<age>65</age>
+				<secretIdentity>Charles Xavier</secretIdentity>
+				<powers>
+					<item>Telepathy</item>
+					<item>Genius-level intellect</item>
+				</powers>
+			</item>
+			<item>
+				<name>Wolverine</name>
+				<age>200</age>
+				<secretIdentity>Logan</secretIdentity>
+				<powers>
+					<item>Regenerative healing factor</item>
+					<item>Adamantium skeleton</item>
+					<item>Retractable claws</item>
+				</powers>
+			</item>
+			<item>
+				<name>Storm</name>
+				<age>35</age>
+				<secretIdentity>Ororo Munroe</secretIdentity>
+				<powers>
+					<item>Atmokinesis</item>
+					<item>Flight</item>
+					<item>Elemental control</item>
+				</powers>
+			</item>
+			<item>
+				<name>Cyclops</name>
+				<age>35</age>
+				<secretIdentity>Scott Summers</secretIdentity>
+				<powers>
+					<item>Optic blasts</item>
+					<item>Energy absorption</item>
+					<item>Expert tactician</item>
+				</powers>
+			</item>
+			<item>
+				<name>Jean Grey</name>
+				<age>35</age>
+				<secretIdentity>Jean Grey</secretIdentity>
+				<powers>
+					<item>Telekinesis</item>
+					<item>Telepathy</item>
+					<item>Phoenix Force</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+	<item>
+		<squadName>The Incredibles</squadName>
+		<homeTown>Metroville</homeTown>
+		<formed>2004</formed>
+		<status>good</status>
+		<secretBase>Parr Residence</secretBase>
+		<active>true</active>
+		<members>
+			<item>
+				<name>Mr. Incredible</name>
+				<age>45</age>
+				<secretIdentity>Bob Parr</secretIdentity>
+				<powers>
+					<item>Super strength</item>
+					<item>Enhanced durability</item>
+				</powers>
+			</item>
+			<item>
+				<name>Elastigirl</name>
+				<age>40</age>
+				<secretIdentity>Helen Parr</secretIdentity>
+				<powers>
+					<item>Elasticity</item>
+					<item>Shape manipulation</item>
+				</powers>
+			</item>
+			<item>
+				<name>Violet Parr</name>
+				<age>17</age>
+				<secretIdentity>Violet Parr</secretIdentity>
+				<powers>
+					<item>Invisibility</item>
+					<item>Force field generation</item>
+				</powers>
+			</item>
+			<item>
+				<name>Dash Parr</name>
+				<age>15</age>
+				<secretIdentity>Dash Parr</secretIdentity>
+				<powers>
+					<item>Super speed</item>
+				</powers>
+			</item>
+			<item>
+				<name>Jack-Jack</name>
+				<age>1</age>
+				<secretIdentity>Jack-Jack Parr</secretIdentity>
+				<powers>
+					<item>Multiple powers (shapeshifting, laser vision, etc.)</item>
+				</powers>
+			</item>
+		</members>
+	</item>
+</all>
