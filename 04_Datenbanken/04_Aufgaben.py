@@ -178,25 +178,9 @@ for squad in content:
         sql_add_member = "INSERT INTO members (squad_id, name, age, secretIdentity, powers) VALUES (%s, %s, %s, %s, %s)"
         mycursor.execute(sql_add_member, (squad_id, member.get('name'), member.get('age'), member.get('secretIdentity'), "testpower"))
 
-mycursor.execute("""
-SELECT 
-  squads.squadName, 
-  squads.homeTown, 
-  members.name
-FROM members
-INNER JOIN squads ON members.squad_id = squads.id;
-                 """)
 
-print(json.dumps(mycursor.fetchall(), indent=4))
 
-mycursor.execute("""
-SELECT *
-FROM squads, members
-                 """)
-print(json.dumps(mycursor.fetchall(), indent=4))
 
-# Tests
-'''
 print(f"""
   create_table: {create_table(table="test_table", columns_config_str="id INT AUTO_INCREMENT PRIMARY KEY, testColumn VARCHAR(255)")} 
   \n
@@ -218,5 +202,5 @@ print(f"""
   read_tables: {read_tables()}
 """
 )
-'''
+
 mydb.commit()
