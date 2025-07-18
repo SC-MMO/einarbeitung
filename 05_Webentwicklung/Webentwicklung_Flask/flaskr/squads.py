@@ -17,31 +17,29 @@ class SquadForm(FlaskForm):
 
 @squad_bp.route('/', methods=["GET", "POST"])
 def show_squads():
-    squads = exec_cmd(sql_str="""             
+    squads = exec_cmd(sql_str="""
 SELECT 
     CONCAT('<a href="/squads/', squads.squadId, '">', squads.squadName, '</a>') AS squadName,
     squads.formed,
     squads.homeTown,
     squads.status,
     squads.secretBase,
-    IF(squads.active, 'yea', 'ney'),
-    GROUP_CONCAT(DISTINCT CONCAT('<a href="/members/', members.name, '">', members.name, '</a>') ORDER BY powers.power SEPARATOR ', ') AS members,
+    squads.active,
+    GROUP_CONCAT(DISTINCT CONCAT('<a href="/members/', members.memberId, '">', members.name, '</a>') SEPARATOR ', ') AS members,
     CONCAT(
-        '<a href="/squads/', squads.squadId, '/delete' '"><i class="fa-solid fa-trash"></i></a>', 
+        '<a href="/squads/', squads.squadId, '/delete"><i class="fa-solid fa-trash"></i></a>', 
         ' - ',
-        '<a href="/squads/', squads.squadId, '/edit' '"><i class="fa-solid fa-pen-to-square"></i></a>'
-        )
-                      
+        '<a href="/squads/', squads.squadId, '/edit"><i class="fa-solid fa-pen-to-square"></i></a>'
+    )
 FROM 
     squads
-JOIN 
-    members ON members.squadId = squads.squadId
 LEFT JOIN 
-    powers ON members.memberId = powers.memberId
+    members ON members.squadId = squads.squadId
 GROUP BY 
-    squads.squadID
+    squads.squadId
 ORDER BY 
-    squads.squadID;
+    squads.squadId;
+
 
 """)
     columns = ["Squad Name", "Formed", "Home Town", "Status", "Secret Base", "Active", "Members", "Actions"]
@@ -63,8 +61,16 @@ def create_a_squad():
     form = SquadForm(request.form)
     form.submitField.label.text = 'Create'
     if request.method == "POST" and form.validate():
-        add_row(table="squads", args=[form.squadName.data, form.homeTown.data, form.formed.data, form.status.data, form.secretBase.data, form.active.data])
-        return redirect(url_for("members.show_members"))
+        args=[
+            form.squadName.data, 
+            form.homeTown.data, 
+            form.formed.data, 
+            form.status.data, 
+            form.secretBase.data, 
+            form.active.data
+        ]
+        add_row(table="squads", args=args)
+        return redirect(url_for("squads.show_squads"))
     return render_template("edit_squad.html", form=form, intent='create', table='squads')
 
 
