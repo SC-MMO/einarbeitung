@@ -21,15 +21,15 @@ SELECT
     members.age,
     members.secretIdentity,
     squads.status,
-    CONCAT('<a href="/squads/', squads.squadName, '">', squads.squadName, '</a>') AS squadName,
+    CONCAT('<a href="/squads/', squads.squadId, '">', squads.squadName, '</a>') AS squadName,
     IF(squads.active, 'yea', 'ney'),
     GROUP_CONCAT(powers.power ORDER BY powers.power SEPARATOR ', ') AS powers,
     CONCAT(
-                       '<a href="/members/', members.memberId, '/delete' '"><i class="fa-solid fa-trash"></i></a>', ' - ',
-                       '<a href="/members/', members.memberId, '/edit' '"><i class="fa-solid fa-pen-to-square"></i></a>'
-                       )
+        '<a href="/members/', members.memberId, '/delete' '"><i class="fa-solid fa-trash"></i></a>', 
+        ' - ',
+        '<a href="/members/', members.memberId, '/edit' '"><i class="fa-solid fa-pen-to-square"></i></a>'
+        )
 
-                       
 FROM 
     members
 JOIN 
@@ -42,7 +42,7 @@ ORDER BY members.memberId;
 """)
 
     columns = ["Name", "Age", "Secret Identity", "Status", "Squad Name", "Active", "Powers", "Actions"]
-    return render_template("row_table.html", title="Members", columns=columns, rows=members)
+    return render_template("row_table.html", type="member", columns=columns, rows=members)
 
 @member_bp.route('/<memberId>', methods=["GET", "POST"])
 def show_a_member(memberId):
@@ -51,12 +51,9 @@ def show_a_member(memberId):
     res = dict(zip(columns, row))
     
     squadName = read_rows(table="squads", columns=["squadName", "status", "active"], limit=1, filter_args=[f"squadId = \"{res.get('squadId')}\""])[0]
-    if squadName:
-        res["squadName"] = squadName[0]
-        res["status"] = squadName[1]
-        res["active"] = squadName[2]
-    else:
-        res["squadName"] = "Unknown"
+    res["squadName"] = squadName[0]
+    res["status"] = squadName[1]
+    res["active"] = squadName[2]
 
     powers = read_rows(table="powers", columns=["power"], filter_args=[f"memberId = \"{res.get('memberId')}\""])
     res["powers"] = [p[0] for p in powers]
@@ -69,9 +66,12 @@ def create_a_member():
     form = MemberForm(request.form)
     form.submitField.label.text = 'Create'
     if request.method == "POST" and form.validate():
-        squadId = read_rows(table="squads", columns=["squadId"], limit=1, filter_args=[f"squads.squadName = '{form.squadName}'"])
-        add_row(table="members", args=[squadId, form.name, form.age, form.secretIdentity])
-        return render_template(url_for("members.show_members"))
+        squadId = read_rows(table="squads", columns=["squadId"], limit=1, filter_args=[f"squads.squadName = '{form.squadName.data}'"])
+        if not squadId:
+            return "Error, that squad does not exist"
+        squadId = squadId[0][0]
+        add_row(table="members", args=[squadId, form.name.data, form.age.data, form.secretIdentity.data])
+        return redirect(url_for("members.show_members"))
     return render_template("edit_member.html", form=form, intent='create', table='members')
 
 
@@ -93,11 +93,11 @@ def edit_a_member(memberId):
         return redirect(url_for("members.edit_a_member", memberId=member_data[0]))
 
     form.memberId.data = member_data[0]
-    form.submitField.label.text = 'Apply Changes'
     form.name.data = member_data[2]
     form.squadName.data = squad_name
     form.age.data = member_data[3]
     form.secretIdentity.data = member_data[4]
+    form.submitField.label.text = 'Apply Changes'
 
     return render_template("edit_member.html", form=form, intent='Edit', table='member')
 
