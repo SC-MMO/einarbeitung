@@ -46,12 +46,8 @@
       </tbody>
     </table>
     <div style="text-align: center;">
-      {% if intent == 'Edit' %}
-        {{ form.submitField(style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;") }}
-      {% else %}
-          {{ form.submitField(style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;") }}
-      {% endif %}
-      
+    {{ form.submitField(style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;") }}
+    
     </div>
     </form>
     {% if intent == 'Edit' %}
