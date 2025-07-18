@@ -28,6 +28,12 @@ i.status {
     right: 22%;
 }
 
+i.edit {
+    position: absolute;
+    right: 22.5%;
+    top: 24%;
+}
+
 /* Container for one of the left icons and its corrosponding text */
 .left-values {
     height: 10rem;
