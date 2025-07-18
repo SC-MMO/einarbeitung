@@ -77,15 +77,16 @@ def create_a_member():
 
 @member_bp.route('/<memberId>/edit', methods=["GET", "POST"])
 def edit_a_member(memberId):
-    member_data = read_rows(table="members", columns=["memberId", 'squadId', 'name', 'age', 'secretIdentity', ], limit=1, filter_args=[f"members.memberId = '{memberId}'"])[0]
+    member_data = read_rows(table="members", columns=["memberId", 'squadId', 'name', 'age', 'secretIdentity'], limit=1, filter_args=[f"members.memberId = '{memberId}'"])[0]
     squad_name = read_rows(table="squads", columns=['squadName'], limit=1, filter_args=[f"squads.squadId = '{member_data[1]}'"])[0][0]
 
     form = MemberForm(request.form)
     
     if request.method == "POST" and form.validate():
+        squadId = read_rows(table="squads", columns=['squadId'], limit=1, filter_args=[f"squads.squadName = '{form.squadName.data}'"])[0][0]
         row_changes = [
             f"name = '{form.name.data}'",
-            f"squadId = '{member_data[1]}'",
+            f"squadId = '{squadId}'",
             f"age = '{form.age.data}'",
             f"secretIdentity = '{form.secretIdentity.data}'"
         ]
