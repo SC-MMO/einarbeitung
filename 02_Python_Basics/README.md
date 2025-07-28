@@ -46,7 +46,8 @@
 -> Man verbirgt die Attribute und ggf. Methoden einer Klasse und macht es nur für das was man verändern/aufrufen können soll möglich es aufzurufen bzw. zu verändern
 
 5. Was ist Vererbung?
--> Wenn eine Klasse Attribute und/oder Methoden von einer anderen Klasse kopiert
+-> Wenn eine Klasse Attribute und/oder Methoden von einer anderen Klasse übernimmt (erbt)
+-> Bsp: Katze erbt gewisse Attribute von Tier
 
 6. Was versteht man unter Refactoring?
 -> Umstrukturierung von Code, sodass dieser logischer, übersichtlicher und ggf. performanter läuft 
