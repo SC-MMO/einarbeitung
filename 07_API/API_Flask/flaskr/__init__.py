@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, abort
 from logging.config import dictConfig
 from .db import read_tables, read_rows
 
