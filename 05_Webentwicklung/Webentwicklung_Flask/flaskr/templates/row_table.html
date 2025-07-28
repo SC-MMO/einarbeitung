@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='data_table/data_table.css') }}">
+    <script src="{{ url_for('static', filename='data_table/data_table.js') }}"></script>
+    <h1>{{ type.capitalize()}}s</h1>
+      <hr>
+    <table id="dataTable" class="display">
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    {% for item in row %}
+                        <td>{{ item|safe }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form method="GET" action="{{ url_for(type ~ 's.create_a_' ~ type) }}" style="text-align: center">
+    <button type="submit" style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem; color: white; border: none; padding: 0.5rem 1rem;">
+        Create {{ type.capitalize() }}
+    </button>
+</form>
+
+{% endblock %}

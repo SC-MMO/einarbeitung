@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='members/member_edit.css') }}">
+
+
+<div class="container">
+  <div class="rounded-rectangle">  
+{% if intent == 'Edit' %}
+    <form method="POST" action="{{ url_for('members.edit_a_member', memberId=form.memberId.data) }}">
+{% else %}
+    <form method="POST" action="{{ url_for('members.create_a_member') }}">
+{% endif %}
+    {{ form.hidden_tag() }}
+    
+    {% if intent == 'Edit' %}
+      <h1>Edit {{ form.name.data }}</h1>
+    {% else %}
+        <h1>Create a new user</h1>
+    {% endif %}
+
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Attribute</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Name</th>
+          <td>{{ form.name(class="border-0 focus-ring form-field", placeholder="Name of the member") }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Squad Name</th>
+          <td>{{ form.squadName(class="border-0 focus-ring form-field", placeholder="Squad of the member") }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Age</th>
+            <td>{{ form.age(class="border-0 focus-ring form-field", placeholder="Age of the member") }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Secret Identity</th>
+          <td>{{ form.secretIdentity(class="border-0 focus-ring form-field", placeholder="Secret Identity of the member") }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center;">
+    {{ form.submitField(style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;") }}
+    
+    </div>
+    </form>
+    {% if intent == 'Edit' %}
+      <form method="POST" action="{{ url_for('members.delete_a_member', memberId=form.memberId.data) }}" style="text-align: center">
+        {{ form.csrf_token }}
+        <input type="submit" value="Delete Member" style=" text-align: center; background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;"/>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

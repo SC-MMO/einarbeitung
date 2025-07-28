@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='members/member_edit.css') }}">
+
+
+<div class="container">
+  <div class="rounded-rectangle">  
+{% if intent == 'Edit' %}
+    <form method="POST" action="{{ url_for('squads.edit_a_squad', squadId=form.squadId.data) }}">
+{% else %}
+    <form method="POST" action="{{ url_for('squads.create_a_squad') }}">
+{% endif %}
+    {{ form.hidden_tag() }}
+    
+    {% if intent == 'Edit' %}
+      <h1>Edit {{ form.squadName.data }}</h1>
+    {% else %}
+        <h1>Create a new squad</h1>
+    {% endif %}
+
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Attribute</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Squad Name</th>
+          <td>{{ form.squadName(class="border-0 focus-ring form-field", placeholder="Squad Name of the squad") }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Home Town</th>
+          <td>{{ form.homeTown(class="border-0 focus-ring form-field", placeholder="Home Town of the member") }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Formed</th>
+            <td>{{ form.formed(class="border-0 focus-ring form-field", placeholder="Formation year of the squad") }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Status</th>
+          <td>{{ form.status(class="border-0 focus-ring form-field", placeholder="Status of the squad") }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Secret Base</th>
+          <td>{{ form.secretBase(class="border-0 focus-ring form-field", placeholder="Secret Base of the squad") }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Active</th>
+          <td>{{ form.active(class="border-0 focus-ring form-field", placeholder="Activity status of the squad") }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="text-align: center;">
+    {{ form.submitField(style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;") }}
+      
+    </div>
+    </form>
+    {% if intent == 'Edit' %}
+      <form method="POST" action="{{ url_for('squads.delete_a_squad', squadId=form.squadId.data) }}" style="text-align: center">
+        {{ form.csrf_token }}
+        <input type="submit" value="Delete Squad" style=" text-align: center; background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem;"/>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
