@@ -49,12 +49,12 @@ def create_table(*, table:str, columns_config_str: Union[str, List[str]], error:
   try:
     columns_error = "Columns config str must be specified when creating a table. It hast to be either 1 conform mysql string or a list of strs for each column" 
     
-    if not columns_error:
+    if not columns_config_str:
       raise ValueError(columns_error) 
     
     if isinstance(columns_config_str, list):
       if not any(col for col in columns_config_str):
-        raise ValueError(columns_config_str)
+        raise ValueError(columns_error)
       columns_config_str = ', '.join(columns_config_str)
 
     mycursor.execute(f"CREATE TABLE IF NOT EXISTS {table} ({columns_config_str})")
