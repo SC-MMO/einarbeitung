@@ -22,6 +22,20 @@ In diesem Projekt wird eine API erstellt, über die Daten abgefragt werden könn
 -> APIs ermöglichen die Kommunikation zwischen mehreren Applikationen für den Datenaustausch
 
 - Woraus besteht eine API? Beschreibe die Komponenten und Funktionen einer API.
+-> Url Endpunkt:
+    --> Man kann Funktionen von APIs durch das aufrufen von vordefinierten URLs aufrufen
+-> Methoden:
+    --> Man kann festlegen, was ein gemacht werden soll
+-> Dateiformat:
+    --> Das Format, wie Daten Empfangen(Eingelesen) und Zurückgegeben werden
+-> Authentifizierung:
+    --> API-Key, API-Token, etc.
+-> Anfrage (Request)
+    --> Client sendet Anfrage an Server URL mit einer bestimmter Methode mit Daten in einem bestimmten Dateiformat, enthält ggf. Authentifizierung
+-> Antwort (Response):
+    --> Server sendet einen Statuscode und ggf. Daten in einem bestimmten Dateiformat an den Client
+-> Dokumentation:
+    --> Beschreibt, wie die API benutzt werden kann (Endpunkte, Datenformate, Regeln, etc.)
 
 - Wann wird eine API verwendet? Erkläre die Einsatzgebiete und Situationen, in denen APIs eingesetzt werden.
 -> Eine API wird immer dann verwendet, wenn unterschiedliche Systeme miteinander für z. B. einen Datenaustausch kommunizieren müssen
