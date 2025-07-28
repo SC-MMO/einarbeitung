@@ -1,7 +1,7 @@
 from typing import List
 import json
 
-class member:
+class Member:
     def __init__(self, *, id:int, name: str, age: int, secretIdentity: str, powers: List[str]):
         self.id = id
         self.name = name
@@ -16,8 +16,8 @@ class member:
 
         return "\n" + ', '.join(result)
 
-class squad:
-    def __init__(self, *, squadName:str, homeTown: str, formed: int, status: str, active: bool, members:List[member]):
+class Squad:
+    def __init__(self, *, squadName:str, homeTown: str, formed: int, status: str, active: bool, members:List[Member]):
         self.squadName = squadName
         self.homeTown = homeTown
         self.formed = formed
@@ -32,7 +32,7 @@ class squad:
         return result
     
     def add_new_member(self, **kwargs):
-        self.members.append(member(**kwargs))
+        self.members.append(Member(**kwargs))
 
     def del_member(self, *,  id: int) -> bool:
         for idx, member in enumerate(self.members):
@@ -49,14 +49,14 @@ with open("../base.json", "r") as my_file:
 groups = []
 for group in content:
     ids = iter(range(1 + len(group.get('members', []))))
-    obj = squad(
+    obj = Squad(
         squadName=group.get('squadName', 'N/A'),
         homeTown=group.get('homeTown', 'N/A'),
         formed=group.get('formed', 'N/A'),
         status=group.get('status', 'N/A'),
         active=group.get('active', False),
         members= [
-            member(
+            Member(
                 id=next(ids),
                 name=a_member.get('name', 'N/A'), 
                 age=a_member.get('age', 'N/A'),
@@ -70,7 +70,7 @@ for group in content:
 for group in groups:
     print(group, "\n")
 
-a_squad = squad(squadName="testname", homeTown="testtown", formed=1000, status="idk", active=True, members=[])
+a_squad = Squad(squadName="testname", homeTown="testtown", formed=1000, status="idk", active=True, members=[])
 print(a_squad, "\n")
 
 a_squad.add_new_member(id=1, name="test", age=4, secretIdentity="Batman", powers=[])
