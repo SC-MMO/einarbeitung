@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from .db import exec_cmd, read_rows, read_columns, add_row, delete_row, edit_row
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, HiddenField
@@ -55,6 +55,34 @@ def show_a_squad(squadId):
     
     res['members'] = members
     return render_template("squad.html", res=res)
+
+@squad_bp.route('/test', methods=["GET"])
+def test():
+    squads = exec_cmd(sql_str="""
+SELECT 
+    CONCAT('<a href="/squads/', squads.squadId, '">', squads.squadName, '</a>') AS squadName,
+    squads.formed,
+    squads.homeTown,
+    squads.status,
+    squads.secretBase,
+    squads.active,
+    GROUP_CONCAT(DISTINCT CONCAT('<a href="/members/', members.memberId, '">', members.name, '</a>') SEPARATOR ', ') AS members,
+    CONCAT(
+        '<a href="/squads/', squads.squadId, '/delete"><i class="fa-solid fa-trash"></i></a>', 
+        ' - ',
+        '<a href="/squads/', squads.squadId, '/edit"><i class="fa-solid fa-pen-to-square"></i></a>'
+    )
+FROM 
+    squads
+LEFT JOIN 
+    members ON members.squadId = squads.squadId
+GROUP BY 
+    squads.squadId
+ORDER BY 
+    squads.squadId;
+""")
+    columns = ["Squad Name", "Formed", "Home Town", "Status", "Secret Base", "Active", "Members", "Actions"]
+    return jsonify([columns, squads])
 
 @squad_bp.route('/create', methods=["GET", "POST"])
 def create_a_squad():

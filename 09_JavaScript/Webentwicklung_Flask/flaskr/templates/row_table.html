@@ -2,31 +2,34 @@
 
 {% block content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='data_table/data_table.css') }}">
-    <script src="{{ url_for('static', filename='data_table/data_table.js') }}"></script>
     <h1>{{ type.capitalize()}}s</h1>
       <hr>
-    <table id="dataTable" class="display">
-        <thead>
-            <tr>
-                {% for column in columns %}
-                    <th>{{ column }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in rows %}
-                <tr>
-                    {% for item in row %}
-                        <td>{{ item|safe }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+      <label for="entrycount">Show </label>
+      <select name="entrycount" id="entrycount" onchange="reloadTable(this.value, true);">
+        <option value=5>5</option>
+        <option value=10>10</option>
+        <option value=15>15</option>
+        <option value=20>20</option>
+      </select>
+      entries
+      <div id="objectTable"></div>
+      <br>
+      <div style="text-align: right;">
+        <button onclick="first_page()"><<</button>
+        <button onclick="previous_page()"><</button>
+        <span id="pageButtonContainer"></span>
+        <button onclick="next_page()">></button>
+        <button onclick="last_page()">>></button>
+      </div>
+      <br>
     <form method="GET" action="{{ url_for(type ~ 's.create_a_' ~ type) }}" style="text-align: center">
     <button type="submit" style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem; color: white; border: none; padding: 0.5rem 1rem;">
         Create {{ type.capitalize() }}
     </button>
 </form>
+
+
+<script src="{{ url_for('static', filename='data_table/data_table.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 {% endblock %}

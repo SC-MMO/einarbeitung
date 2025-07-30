@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from .db import exec_cmd, read_rows, read_columns, delete_row, edit_row, add_row
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, HiddenField
@@ -15,6 +15,26 @@ class MemberForm(FlaskForm):
 
 @member_bp.route('/', methods=["GET", "POST"])
 def show_members():
+    return render_template("row_table.html", type="member")
+
+@member_bp.route('/<memberId>', methods=["GET", "POST"])
+def show_a_member(memberId):
+    columns = read_columns(table="members", only_name=True)
+    row = read_rows(table="members", limit=1, filter_args=[f"members.memberId = \"{memberId}\""])[0]
+    res = dict(zip(columns, row))
+    
+    squadName = read_rows(table="squads", columns=["squadName", "status", "active"], limit=1, filter_args=[f"squadId = \"{res.get('squadId')}\""])[0]
+    res["squadName"] = squadName[0]
+    res["status"] = squadName[1]
+    res["active"] = squadName[2]
+
+    powers = read_rows(table="powers", columns=["power"], filter_args=[f"memberId = \"{res.get('memberId')}\""])
+    res["powers"] = [p[0] for p in powers]
+
+    return render_template("member.html", res=res)
+
+@member_bp.route('/test', methods=["GET"])
+def test():
     members = exec_cmd(sql_str="""
 SELECT 
     CONCAT('<a href="/members/', members.memberId, '">', members.name, '</a>') AS memberName,
@@ -40,26 +60,9 @@ GROUP BY
     members.memberId
 ORDER BY members.memberId;
 """)
-
     columns = ["Name", "Age", "Secret Identity", "Status", "Squad Name", "Active", "Powers", "Actions"]
-    return render_template("row_table.html", type="member", columns=columns, rows=members)
-
-@member_bp.route('/<memberId>', methods=["GET", "POST"])
-def show_a_member(memberId):
-    columns = read_columns(table="members", only_name=True)
-    row = read_rows(table="members", limit=1, filter_args=[f"members.memberId = \"{memberId}\""])[0]
-    res = dict(zip(columns, row))
+    return jsonify([columns, members])
     
-    squadName = read_rows(table="squads", columns=["squadName", "status", "active"], limit=1, filter_args=[f"squadId = \"{res.get('squadId')}\""])[0]
-    res["squadName"] = squadName[0]
-    res["status"] = squadName[1]
-    res["active"] = squadName[2]
-
-    powers = read_rows(table="powers", columns=["power"], filter_args=[f"memberId = \"{res.get('memberId')}\""])
-    res["powers"] = [p[0] for p in powers]
-
-    return render_template("member.html", res=res)
-
 
 @member_bp.route('/create', methods=["GET", "POST"])
 def create_a_member():
