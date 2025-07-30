@@ -1,0 +1,38 @@
+nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1030;
+  background-image: linear-gradient(to right, #f5f4f7 , #d8d6dd);
+  background: lightgray;
+
+  padding: 0 0.5rem;
+}
+
+nav h1 {
+  flex: auto;
+  margin: 0;
+}
+
+nav ul li a,
+nav ul li span,
+header .action {
+  display: block;
+  padding: 0.5rem;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 2rem;
+  gap: 1rem; /* Small Space between each item of a group */
+}
