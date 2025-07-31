@@ -45,10 +45,12 @@ SELECT
     IF(squads.active, 'yea', 'ney'),
     GROUP_CONCAT(powers.power ORDER BY powers.power SEPARATOR ', ') AS powers,
     CONCAT(
-        '<a href="/members/', members.memberId, '/delete' '"><i class="fa-solid fa-trash"></i></a>', 
-        ' - ',
-        '<a href="/members/', members.memberId, '/edit' '"><i class="fa-solid fa-pen-to-square"></i></a>'
-        )
+        '<span style="display:inline-flex; gap: 10px;">',
+            '<a href="/squads/', members.memberId, '/delete"><i class="fa-solid fa-trash" style="font-size: 30px;"></i></a>',
+            '<a href="/squads/', members.memberId, '/edit"><i class="fa-solid fa-pen-to-square" style="font-size: 30px;"></i></a>',
+        '</span>'
+    )
+
 
 FROM 
     members

@@ -17,33 +17,7 @@ class SquadForm(FlaskForm):
 
 @squad_bp.route('/', methods=["GET", "POST"])
 def show_squads():
-    squads = exec_cmd(sql_str="""
-SELECT 
-    CONCAT('<a href="/squads/', squads.squadId, '">', squads.squadName, '</a>') AS squadName,
-    squads.formed,
-    squads.homeTown,
-    squads.status,
-    squads.secretBase,
-    squads.active,
-    GROUP_CONCAT(DISTINCT CONCAT('<a href="/members/', members.memberId, '">', members.name, '</a>') SEPARATOR ', ') AS members,
-    CONCAT(
-        '<a href="/squads/', squads.squadId, '/delete"><i class="fa-solid fa-trash"></i></a>', 
-        ' - ',
-        '<a href="/squads/', squads.squadId, '/edit"><i class="fa-solid fa-pen-to-square"></i></a>'
-    )
-FROM 
-    squads
-LEFT JOIN 
-    members ON members.squadId = squads.squadId
-GROUP BY 
-    squads.squadId
-ORDER BY 
-    squads.squadId;
-
-
-""")
-    columns = ["Squad Name", "Formed", "Home Town", "Status", "Secret Base", "Active", "Members", "Actions"]
-    return render_template("row_table.html", type="squad", columns=columns, rows=squads)
+    return render_template("row_table.html", type="squad")
 
 @squad_bp.route('/<squadId>', methods=["GET", "POST"])
 def show_a_squad(squadId):
@@ -68,10 +42,13 @@ SELECT
     squads.active,
     GROUP_CONCAT(DISTINCT CONCAT('<a href="/members/', members.memberId, '">', members.name, '</a>') SEPARATOR ', ') AS members,
     CONCAT(
-        '<a href="/squads/', squads.squadId, '/delete"><i class="fa-solid fa-trash"></i></a>', 
-        ' - ',
-        '<a href="/squads/', squads.squadId, '/edit"><i class="fa-solid fa-pen-to-square"></i></a>'
+        '<span style="display:inline-flex; gap: 10px;">',
+            '<a href="/squads/', squads.squadId, '/delete"><i class="fa-solid fa-trash" style="font-size: 30px;"></i></a>',
+            '<a href="/squads/', squads.squadId, '/edit"><i class="fa-solid fa-pen-to-square" style="font-size: 30px;"></i></a>',
+        '</span>'
     )
+
+                      
 FROM 
     squads
 LEFT JOIN 
