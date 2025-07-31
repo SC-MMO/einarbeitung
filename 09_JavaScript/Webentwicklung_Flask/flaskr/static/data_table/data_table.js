@@ -120,8 +120,13 @@ function create_pagination_button(paginationPage) {
   const button = document.createElement('button');
     button.textContent = `${paginationPage}`;
     button.id = `btn${paginationPage}`;
-    if (paginationPage == page)
-      button.style = `color:red;`
+    button.className = "btn btn-primary btn-sm";
+    button.style.fontSize = "1rem";
+    button.style.margin = "2.5px";
+
+    if (paginationPage == page) {
+      button.style.color = "red";
+    }
 
     button.addEventListener('click', () => {
       reloadTable(paginationPage, count_val)

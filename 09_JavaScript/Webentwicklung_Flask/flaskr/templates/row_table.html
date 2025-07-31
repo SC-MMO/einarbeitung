@@ -18,17 +18,16 @@
       </select>
       entries
       <div id="objectTable"></div>
-      <br>
       <div style="text-align: right;">
-        <button onclick="first_page()"><<</button>
-        <button onclick="previous_page()"><</button>
+        <button class="btn btn-primary btn-sm" onclick="first_page()"><<</button>
+        <button class="btn btn-primary btn-sm" onclick="previous_page()"><</button>
         <span id="pageButtonContainer"></span>
-        <button onclick="next_page()">></button>
-        <button onclick="last_page()">>></button>
+        <button class="btn btn-primary btn-sm" onclick="next_page()">></button>
+        <button class="btn btn-primary btn-sm" onclick="last_page()">>></button>
       </div>
       <br>
     <form method="GET" action="{{ url_for(type ~ 's.create_a_' ~ type) }}" style="text-align: center">
-    <button type="submit" style="background-image: linear-gradient(to right, #c0bdc7 , #222027); width: 10rem; color: white; border: none; padding: 0.5rem 1rem;">
+    <button type="submit" class="btn btn-secondary btn-lg" style="width: auto; height: auto; padding: 10px;">
         Create {{ type.capitalize() }}
     </button>
 </form>
