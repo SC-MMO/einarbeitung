@@ -1,4 +1,46 @@
-/* No line breaks */
-td {
-   white-space: nowrap;
+h2 {
+    margin: 2%;
+}
+
+
+input {
+    font-size: 13.3px !important;
+}
+
+
+select {
+    font-size: 13.3px !important;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+
+th {
+  position: sticky;
+  top: 0;
+  background-color: #ffff  !important;
+  z-index: 1;
+}
+
+
+.btn{
+  width: 40px;
+  height: 40px;
+  padding: initial;
+}
+
+
+.table tbody td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
