@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, url_for, render_template, abort, session, g, request
+from flask import Flask, render_template
 from logging.config import dictConfig
 
 def create_app(test_config=None):
