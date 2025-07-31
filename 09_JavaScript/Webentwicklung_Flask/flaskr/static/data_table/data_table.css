@@ -4,12 +4,12 @@ h2 {
 
 
 input {
-    font-size: 13.3px !important;
+    font-size: 13.3px;
 }
 
 
 select {
-    font-size: 13.3px !important;
+    font-size: 13.3px;
 }
 
 th, td {
@@ -22,7 +22,7 @@ th, td {
 th {
   position: sticky;
   top: 0;
-  background-color: #ffff  !important;
+  background-color: #ffff;
   z-index: 1;
 }
 
