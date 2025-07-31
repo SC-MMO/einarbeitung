@@ -4,8 +4,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='data_table/data_table.css') }}">
     <h1>{{ type.capitalize()}}s</h1>
       <hr>
+      <div style="text-align: right;">
+        <label for="filter">Filter:</label>
+        <input type="text" id="filter" name="filter" onchange="filter_change(this.value)"><br>
+      </div>
+      
       <label for="entrycount">Show </label>
-      <select name="entrycount" id="entrycount" onchange="reloadTable(this.value, true);">
+      <select name="entrycount" id="entrycount" onchange="reloadTable(1, this.value);">
         <option value=5>5</option>
         <option value=10>10</option>
         <option value=15>15</option>
