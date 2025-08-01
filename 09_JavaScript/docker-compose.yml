@@ -6,3 +6,16 @@ services:
       - "5001:5001"
     volumes:
       - /etc/localtime:/etc/localtime:ro
+
+  test-mysql:
+    image: mysql
+    container_name: test-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: yourpassword
+      MYSQL_DATABASE: testxd
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    deploy:
+      resources:
+        limits:
+          memory: 512M
