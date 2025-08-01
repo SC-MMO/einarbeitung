@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='data_table/data_table.css') }}">
+    <h1>{{ type.capitalize()}}s</h1>
+      <hr>
+      <div style="text-align: right;">
+        <label for="filter">Filter:</label>
+        <input type="text" id="filter" name="filter" onchange="filter_change(this.value)"><br>
+      </div>
+      
+      <label for="entrycount">Show </label>
+      <select name="entrycount" id="entrycount" onchange="reloadTable(1, this.value);">
+        <option value=5>5</option>
+        <option value=10>10</option>
+        <option value=15>15</option>
+        <option value=20>20</option>
+      </select>
+      entries
+      <div id="objectTable"></div>
+      <div style="text-align: right;">
+        <button class="btn btn-primary btn-sm" onclick="first_page()"><<</button>
+        <button class="btn btn-primary btn-sm" onclick="previous_page()"><</button>
+        <span id="pageButtonContainer"></span>
+        <button class="btn btn-primary btn-sm" onclick="next_page()">></button>
+        <button class="btn btn-primary btn-sm" onclick="last_page()">>></button>
+      </div>
+      <br>
+    <form method="GET" action="{{ url_for(type ~ 's.create_a_' ~ type) }}" style="text-align: center">
+    <button type="submit" class="btn btn-secondary btn-lg" style="width: auto; height: auto; padding: 10px;">
+        Create {{ type.capitalize() }}
+    </button>
+</form>
+
+
+<script src="{{ url_for('static', filename='data_table/data_table.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
